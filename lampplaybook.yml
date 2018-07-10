@@ -1,0 +1,10 @@
+---
+- hosts: all
+  user: usr1
+  sudo: yes
+  connection: ssh
+  roles:
+   - webserver
+   - database
+   - wordpress
+   

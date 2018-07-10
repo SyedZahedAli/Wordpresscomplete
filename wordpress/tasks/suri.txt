@@ -1,0 +1,44 @@
+[?1049h[?1h=[1;24r[?12;25h[?12l[?25h[27m[m[H[2J[?25l[24;1H"main.yml" 37L, 1198C[1;1H[35m---[m
+[38;5;130m- [m[36mname[m[35m:[m restart apache
+  [36mservice[m[35m:[m name=apache2 state=restarted
+  [36msudo[m[35m:[m yes
+[38;5;130m- [m[36mname[m[35m:[m Download WordPress
+  [36mget_url[m[35m:[m
+    url=https://wordpress.org/latest.tar.gz
+    dest=/tmp/wordpress.tar.gz
+    validate_certs=no
+
+[38;5;130m- [m[36mname[m[35m:[m Extract WordPress
+  [36munarchive[m[35m:[m src=/tmp/wordpress.tar.gz dest=/var/www/ copy=no
+  [36msudo[m[35m:[m yes
+
+[38;5;130m- [m[36mname[m[35m:[m Update default Apache site
+  [36msudo[m[35m:[m yes
+  [36mlineinfile[m[35m:[m
+    dest=/etc/apache2/sites-enabled/000-default.conf
+    regexp="(.)+DocumentRoot /var/www/html"
+    line="DocumentRoot /var/www/wordpress"
+  [36mnotify[m[35m:[m
+    [38;5;130m- [mrestart apache[24;63H1,1[11CTop[1;1H[?12l[?25h[?25l[24;63H2[2;1H[?12l[?25h[?25l[24;63H3,3[3;3H[?12l[?25h[?25l[24;63H4[4;3H[?12l[?25h[?25l[24;63H5,1[5;1H[?12l[?25h[?25l[24;63H6,3[6;3H[?12l[?25h[?25l[24;63H5[5;3H[?12l[?25h[?25l[24;63H6[6;3H[?12l[?25h[?25l[24;63H7[7;3H[?12l[?25h[?25l[1;23r[1;1H[11M[1;24r[13;1H[38;5;130m- [m[36mname[m[35m:[m Copy sample config file
+  [36mcommand[m[35m:[m mv /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-conff[15;1Hig.php creates=/var/www/wordpress/wp-config.php
+  [36msudo[m[35m:[m yes
+
+[38;5;130m- [m[36mname[m[35m:[m Update WordPress config file
+  [36mlineinfile[m[35m:[m
+    dest=/var/www/wordpress/wp-config.php
+    regexp="{{ item.regexp }}[31m"
+    line="[m[35m{{[m item.line [35m}}[m[31m"
+  with_items:[m[24;1H[K[24;63H18,5[10C73%[7;5H[?12l[?25h[?25l[1;23r[1;1H[7M[1;24r[17;1H[31m    - {'regexp': "[mdefine\\('DB_NAME', [31m'(.)+'[m\\);", [31m'line'[m[35m:[m [31m"define('DB_NAME', 'dd[18;1Hemo');"[m}
+    [38;5;130m- [m[35m{[m[31m'regexp'[m[35m:[m [31m"define[m[35m\\[m[31m('DB_USER', '(.)+'[m[35m\\[m[31m);"[m, [31m'line'[m[35m:[m [31m"define('DB_USER', 'dd[20;1Hemo');"[m[35m}[m
+    [38;5;130m- [m[35m{[m[31m'regexp'[m[35m:[m [31m"define[m[35m\\[m[31m('DB_PASSWORD', '(.)+'[m[35m\\[m[31m);"[m, [31m'line'[m[35m:[m [31m"define('DB_PASSWW[22;1HORD', 'demo');"[m[35m}[m
+  [36msudo[m[35m:[m yes[24;63H[K[24;63H29,3[10CBot[12;3H[?12l[?25h[?25l[24;63H37[23;3H[?12l[?25h[?25l[24;66H5[23;5H[?12l[?25h[?25l[24;66H4[23;4H[?12l[?25h[?25l
+[1m-- INSERT --[m[24;63H[K[24;63H37,4[10CBot[23;4H[36mdo[m[35m:[m yes[23;11H[K[23;4H[?12l[?25h[?25l[36mhjdo[m[35m:[m yes[24;66H6[23;6H[?12l[?25h[?25l[36mgdo[m[35m:[m yes[24;66H7[23;7H[?12l[?25h[?25l[1C[36mdo[m[35m:[m yes[24;66H8[23;8H[?12l[?25h[?25l[36mtrdo[m[35m:[m yes[24;66H10[23;10H[?12l[?25h[?25l[1C[36mdo[m[35m:[m yes[24;67H1[23;11H[?12l[?25h[?25l[36mydo[m[35m:[m yes[24;67H2[23;12H[?12l[?25h[?25l[36mgdo[m[35m:[m yes[24;67H3[23;13H[?12l[?25h[?25l[36mhdo[m[35m:[m yes[24;67H4[23;14H[?12l[?25h[?25l[36mjdo[m[35m:[m yes[24;67H5[23;15H[?12l[?25h[?25l[1;23r[23;1H
+[1;24r[22;3Hshjgdtrdyghj[22;15H[K[23;1H[36mdo[m[35m:[m yes[24;63H[K[24;63H38,1[10CBot[23;1H[?12l[?25h[?25l[1;23r[23;1H
+[1;24r[22;1H[K[23;1H[36mdo[m[35m:[m yes[24;63H[K[24;63H39,1[10CBot[23;1H[?12l[?25h[?25l[1;23r[23;1H
+[1;24r[22;1H[K[23;1H[36mdo[m[35m:[m yes[24;63H[K[24;63H40,1[10CBot[23;1H[?12l[?25h[?25l[1;23r[23;1H
+[1;24r[22;1H[K[23;1H[36mdo[m[35m:[m yes[24;63H[K[24;63H41,1[10CBot[23;1H[?12l[?25h[?25l[1;23r[23;1H
+[1;24r[22;1H[K[23;1H[36mdo[m[35m:[m yes[24;63H[K[24;63H42,1[10CBot[23;1H[?12l[?25h[24;1H[K[23;1H[?25l[24;63H42,1[10CBot[23;1H[?12l[?25h
+[?1l>[?1049lVim: Caught deadly signal HUP
+Vim: preserving files...
+Vim: Finished.
+[24;1H
